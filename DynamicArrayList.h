@@ -50,4 +50,42 @@ public:
         }
         cout << endl;
      }
+     void insert(int index, int value){
+        if(size == capacity){
+            resize(capacity * 2);
+        }
+        for(int i=size-1; i>=index;i--){
+            array[i] = array[i-1];
+        }
+        array[index] = value;
+
+     }
+
+     int getSize(){
+        return size;
+     }
+
+
+     int* toArray(){
+        int* toArr = new int[size];
+
+        for(int i=0; i<size; i++){
+            toArr[i] = array[i];
+        } 
+
+        return toArr;
+
+     }
+
+     void reverse(){
+        int* temp = new int[size];
+        int j=0;
+        for(int i=size-1; i>=0; i--){
+            temp[j++] = array[i];
+        }
+        for(int i=0;i<size;i++){
+            array[i] = temp[i];
+        }
+        delete[] temp;
+     }
 };

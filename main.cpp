@@ -4,33 +4,20 @@
 
 int main(){
 
-    List* list = new DynamicArrayList(5);
+    DynamicArrayList* list = new DynamicArrayList(5);
 
     list->add(1);
     list->add(2);
     list->add(3);
-    int pos = list -> remove(2);
-    cout << "position: "<< pos << " " << endl;
+    
     list->print();
 
-    list->add(4);
-    list->print();
-    
-    list->add(5);
-    list->print();
-    
-    list->add(6);
-    list->print();
-    
-    list->add(7);
-    list->print();
+    // int* arro = list->toArray();
 
-    list->add(8);
+    // for(int i=0; i<3; i++){
+    //     cout << arro[i] << " "; 
+    // }
+    list->reverse();
     list->print();
-    
-    list->add(9);
-    list->print();
-
-
 
 }
