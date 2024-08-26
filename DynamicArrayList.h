@@ -88,4 +88,25 @@ public:
         }
         delete[] temp;
      }
+
+    int getElement(int index){
+        return array[index];
+    }
+
+     void merge(DynamicArrayList* anotherList){
+        if(anotherList == nullptr){
+            return;
+        }
+                
+        int size1 = anotherList->getSize();
+        int newSize = size1 + size;
+        
+        resize(newSize);
+        int j=0;
+        for(int i=size; i<newSize && j < anotherList-> getSize(); i++){
+            array[i] = anotherList->getElement(j);
+            j++;
+        }
+        size = newSize;
+     }
 };

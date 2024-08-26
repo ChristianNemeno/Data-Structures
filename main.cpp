@@ -17,7 +17,18 @@ int main(){
     // for(int i=0; i<3; i++){
     //     cout << arro[i] << " "; 
     // }
-    list->reverse();
+    // list->reverse();
+    // list->print();
+
+    DynamicArrayList* tempList = new DynamicArrayList(3);
+
+    tempList->add(4);
+    tempList->add(5);
+    tempList->add(6);
+
+    list->merge(tempList);
+
     list->print();
+
 
 }
