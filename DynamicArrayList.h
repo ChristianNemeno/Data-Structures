@@ -1,5 +1,6 @@
 #include "List.h"
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
 class DynamicArrayList : public List {
@@ -26,13 +27,14 @@ public:
     }
 
 //add 20 jump rope
-     void add(int n){
+    void add(int n){
         if(size == capacity){
             resize(capacity * 2);
         }
         array[size++] = n;
      }
-     int remove(int n){
+
+    int remove(int n){
         for(int i=0;i<size-1;i++){
             if(array[i] == n){
                 for(int j=i; j<size-1; j++){
@@ -44,15 +46,20 @@ public:
         }
         return -1;
      }
-     void print(){
+
+    void print(){
         for(int i=0; i<size;i++){
             cout << array[i] << " ";
         }
         cout << endl;
      }
-     void insert(int index, int value){
+
+    void insertAt(int index, int value){
         if(size == capacity){
             resize(capacity * 2);
+        }
+        if(index > size || index < 0){
+            return;
         }
         for(int i=size-1; i>=index;i--){
             array[i] = array[i-1];
@@ -61,12 +68,11 @@ public:
 
      }
 
-     int getSize(){
+    int getSize(){
         return size;
      }
 
-
-     int* toArray(){
+    int* toArray(){
         int* toArr = new int[size];
 
         for(int i=0; i<size; i++){
@@ -77,7 +83,7 @@ public:
 
      }
 
-     void reverse(){
+    void reverse(){
         int* temp = new int[size];
         int j=0;
         for(int i=size-1; i>=0; i--){
@@ -93,7 +99,8 @@ public:
         return array[index];
     }
 
-     void merge(DynamicArrayList* anotherList){
+    void merge(DynamicArrayList* anotherList){
+
         if(anotherList == nullptr){
             return;
         }
@@ -109,4 +116,19 @@ public:
         }
         size = newSize;
      }
+
+    int removeAt(int index){
+        if(size <=0){
+            return 0;
+        }
+        
+        int temp = array[index];
+        for(int i = index; i<size-1 ;i++){
+            array[i] = array[i+1];
+        }
+        size--;
+        return temp;
+    }
+    
+     
 };

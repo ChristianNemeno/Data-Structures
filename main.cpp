@@ -12,6 +12,10 @@ int main(){
     
     list->print();
 
+    int removed = list->removeAt(1);
+    
+    cout << "Removed element: " << removed << endl;
+    list->print();
     // int* arro = list->toArray();
 
     // for(int i=0; i<3; i++){
@@ -20,15 +24,15 @@ int main(){
     // list->reverse();
     // list->print();
 
-    DynamicArrayList* tempList = new DynamicArrayList(3);
+    // DynamicArrayList* tempList = new DynamicArrayList(3);
 
-    tempList->add(4);
-    tempList->add(5);
-    tempList->add(6);
+    // tempList->add(4);
+    // tempList->add(5);
+    // tempList->add(6);
 
-    list->merge(tempList);
+    // list->merge(tempList);
 
-    list->print();
+    // list->print();
 
 
 }
