@@ -1,38 +1,15 @@
 #include "DynamicArrayList.h"
 #include <iostream> 
-
+#include "struct.h"
 
 int main(){
 
-    DynamicArrayList* list = new DynamicArrayList(5);
-
-    list->add(1);
-    list->add(2);
-    list->add(3);
     
-    list->print();
+    killa wazz ;
+    long double x;
+    cout << sizeof(wazz) << endl;
 
-    int removed = list->removeAt(1);
+
     
-    cout << "Removed element: " << removed << endl;
-    list->print();
-    // int* arro = list->toArray();
-
-    // for(int i=0; i<3; i++){
-    //     cout << arro[i] << " "; 
-    // }
-    // list->reverse();
-    // list->print();
-
-    // DynamicArrayList* tempList = new DynamicArrayList(3);
-
-    // tempList->add(4);
-    // tempList->add(5);
-    // tempList->add(6);
-
-    // list->merge(tempList);
-
-    // list->print();
-
-
+    return 0;
 }
