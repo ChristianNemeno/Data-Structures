@@ -1,210 +1,129 @@
 #include "List.h"
 #include <iostream>
 #include <algorithm>
+#include <cmath>
 using namespace std;
 
 class DynamicArrayList : public List {
 private:
     int* array;
     int size;
-    int capacity;
+    int capacity = 5;
 
-    void resize(){
-        cout << "Resizing..." << endl;
-        array=(int*)realloc(array, (capacity*1.5) * sizeof(int));
-
-        if(array ==nullptr){
-            cout << "FAIL";
-            return;
-        }
-        capacity = capacity * 1.5;
-    }
-
-    void resizeSpecial(int n){
-        cout << "Resizing..." << endl;
-
-        array = (int*)realloc(array, n * sizeof(int));
-        if(array ==nullptr){
-            cout << "FAIL";
-            return;
-        }
-        capacity = n;
-
-
-    }
+    
     
 
 
 public:
-    DynamicArrayList(int theCapacity) : size(0), capacity(theCapacity) {
+    DynamicArrayList() : size(0) {
         array = (int*)malloc(capacity * sizeof(int));
     }
 
-//add 20 jump rope
-    int getCapacity(){
-        return capacity;
+// implement
+// get
+// is Empty
+// add 
+// addAt
+// remove
+// removeAt
+// combine
+// removeAll
+// removeRange
+// condition was if the size was full increase it to 50 % 
+// if the size was equals to capacity 2/3 reduce size to 25%
+// all of the functions must be dynamically checked!
+int get(int i){
+    return array[i];
+}
+
+void addAt(int pos, int value){
+    if(size == capacity){
+        cout << "Resizing.. " << endl;
+        capacity =ceil(capacity * 1.5);
+        array = (int*)realloc(array,sizeof(int) * capacity);
     }
-
-    void add(int n){
-        if(size == capacity){
-            resize();
-        }
-        array[size++] = n;
-     }
-     // start here new implementations
-     bool isEmpty(){
-        return size == 0;
-     }
-     void rotate(int k){
-        
-        for(int i=0; i<k; i++){
-
-            int temp = array[size-1];
-            for(int i=size-1; i>=0;i--){
-                array[i] = array[i-1];
-            }
-            array[0] = temp;
-        }
-        
-     }
-
-     //previous implementations
-
-    int remove(int n){
-        for(int i=0;i<size-1;i++){
-            if(array[i] == n){
-                for(int j=i; j<size-1; j++){
-                    array[i] = array[i+1];
-                }
-                size--;
-                return i+1;
-            }
-        }
-        return -1;
-     }
-
-    void print(){
-        for(int i=0; i<size;i++){
-            cout << array[i] << " ";
-        }
-        cout << endl;
-     }
-
-    void insertAt(int index, int value){
-        if(size == capacity){
-            resize();
-        }
-        if(index > size || index < 0){
-            return;
-        }
-        for(int i=size-1; i>=index;i--){
-            array[i] = array[i-1];
-        }
-        array[index] = value;
-
-     }
-
-    int getSize(){
-        return size;
-     }
-
-    int* toArray(){
-        int* toArr = new int[size];
-
-        for(int i=0; i<size; i++){
-            toArr[i] = array[i];
-        } 
-
-        return toArr;
-
-     }
-
-    void reverse(){
-        int* temp = new int[size];
-        int j=0;
-        for(int i=size-1; i>=0; i--){
-            temp[j++] = array[i];
-        }
-        for(int i=0;i<size;i++){
-            array[i] = temp[i];
-        }
-        delete[] temp;
-     }
-
-    int getElement(int index){
-        return array[index];
+    for(int i=size; i>pos; i--){
+        array[i+1] = array[i];
     }
+    array[pos-1] = value;
 
-    void merge(DynamicArrayList* anotherList){
+}
 
-        if(anotherList == nullptr){
-            return;
-        }
-                
-        int size1 = anotherList->getSize();
-        int newSize = size + size1;
-        
-        resizeSpecial(newSize);
+void add(int n){
+    if(size == capacity){
+        cout << "Resizing.. " << endl;
+        capacity = ceil(capacity * 1.5);
+        array = (int*)realloc(array,sizeof(int) * capacity);
+    }   
+    array[size++] = n;
+}
 
-        //int j=0;
-        for(int i=size; i<newSize; i++){
-            array[i] = anotherList->getElement(i-size);
-            
-        }
-        size = newSize;
-     }
+ 
 
-
-
-    int removeAt(int index){
-        if(size <=0){
-            return 0;
-        }
-        
-        int temp = array[index];
-        for(int i = index; i<size-1 ;i++){
-            array[i] = array[i+1];
-        }
-        size--;
-        return temp;
-    }
-
-    void clear(){
-        delete[] array;
-        array = new int[capacity];
-        size = 0;
-    }
-
-    int removeAll(int n){
-        int count =0;
-        for(int i=0 ; i<size; i++){
-            if(array[i] == n){
-                for(int j=i; j<size-1;j++){
-                    array[j] = array[j+1];
-                }
-                i--;
-                size--;
-                count++;
-            }
-        }    
-        return count;
-    }
+int remove(int n){
     
-    DynamicArrayList* subList(int startIndex, int endIndex){
-
-        DynamicArrayList* sub = new DynamicArrayList(capacity);
-        int j=0;
-        
-        for(int i=startIndex; i<endIndex; i++){
-            sub->array[j] = array[i];
-            j++;
+    for(int i=0;i<size;i++){
+        if(array[i] == n){
+            for(int j=i; j<size-1;j++){
+                array[j] = array[j+1];
+            }
+            size--;
+            if(size <= capacity * (2.0/3.0)){
+                if(size > 5){
+                    cout << "Resizing.. " << endl;
+                    capacity = capacity - floor(capacity * 0.25);
+                    array = (int*)realloc(array,sizeof(int) * capacity);
+                }
+            }
+            return i+1;
         }
-        sub->size= j;
-
-        return sub;
-        
 
     }
+
     
-     
+    return -1;
+}
+
+int removeAt(int pos){
+    
+    int temp = array[pos-1];
+
+    for(int i=pos-1; i<size-1; i++){
+        array[i] = array[i+1];
+    }
+    size--;
+        if(size <= capacity * (2.0/3.0)){
+            if(size > 5){
+                capacity = capacity - floor(capacity * 0.25);
+                array = (int*)realloc(array,capacity * sizeof(int));
+            }
+    }    
+
+    return temp;
+}
+
+void combine(DynamicArrayList* list2){
+    while(!list2->isEmpty()){
+        int te = list2->removeAt(1);
+        add(te);
+    }
+}
+
+
+
+bool isEmpty(){
+    return size == 0;
+}
+
+
+void print(){
+    cout << size << "/"<< capacity << endl;
+    for(int i=0; i<size;i++){
+        cout << array[i] << " ";
+    }
+    cout << endl;
+
+}
+
+
 };
