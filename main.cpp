@@ -22,6 +22,16 @@ int main(){
     list->combine(list2);
 
     list->print();
+
+    list->removeAt(0);
+    list->removeAt(0);
+    list->removeAt(0);
+    list->removeAt(0);
+    
+    list->print();
+    // list->removeRange(0,4);
+
+    // list->print();
    
    
 

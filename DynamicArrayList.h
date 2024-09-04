@@ -69,7 +69,7 @@ int remove(int n){
             }
             size--;
             if(size <= capacity * (2.0/3.0)){
-                if(size > 5){
+                if(capacity > 5){
                     cout << "Resizing.. " << endl;
                     capacity = capacity - floor(capacity * 0.25);
                     array = (int*)realloc(array,sizeof(int) * capacity);
@@ -86,14 +86,15 @@ int remove(int n){
 
 int removeAt(int pos){
     
-    int temp = array[pos-1];
+    int temp = array[pos];
 
-    for(int i=pos-1; i<size-1; i++){
+    for(int i=pos; i<size-1; i++){
         array[i] = array[i+1];
     }
     size--;
-        if(size <= capacity * (2.0/3.0)){
-            if(size > 5){
+        if(size <= (capacity * (2.0/3.0))){
+            if(capacity > 5){
+                cout << "Resizing whahwoiahwfhaif" << endl;
                 capacity = capacity - floor(capacity * 0.25);
                 array = (int*)realloc(array,capacity * sizeof(int));
             }
@@ -104,9 +105,22 @@ int removeAt(int pos){
 
 void combine(DynamicArrayList* list2){
     while(!list2->isEmpty()){
-        int te = list2->removeAt(1);
+        int te = list2->removeAt(0);
         add(te);
     }
+}
+
+void removeRange(int start, int end){
+    cout << endl;
+
+    cout << "removed: ";
+    for(int i = start; i < end; i++){
+        int temp = removeAt(start);
+        cout << temp << " ";   
+    }
+    cout << endl;
+    
+    
 }
 
 
@@ -123,6 +137,7 @@ void print(){
     }
     cout << endl;
 
+   
 }
 
 
