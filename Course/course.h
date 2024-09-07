@@ -40,7 +40,7 @@ class Course{
         students[size++] = s; 
 
     }
-
+//aw
     void print() {
     cout << size << "/" << capacity << endl;
 
