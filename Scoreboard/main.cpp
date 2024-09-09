@@ -24,6 +24,8 @@ int main(int argc, char** argv) {
 			case 'p':
 				board->print();
 				break;
+
+            
 		}
 	} while (op != 'x');
 	return 0;

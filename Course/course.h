@@ -23,24 +23,43 @@ class Course{
             students = (student**)realloc(students, capacity * sizeof(student*));
 
         }
-        if(size != 0){
-            for(int i=0; i<size;i++){
-                if(students[i]->grade < s->grade ){
-                    for(int j=size; j>i; j--){
-                        students[j] = students[j-1];
-                    }
-                    students[i] = s;
-                    size++;
-                    return;        
-                }
-            }
-        }
+        // if(size != 0){
+        //     for(int i=0; i<size;i++){
+        //         if(students[i]->grade < s->grade ){
+        //             for(int j=size; j>i; j--){
+        //                 students[j] = students[j-1];
+        //             }
+        //             students[i] = s;
+        //             size++;
+        //             return;        
+        //         }
+        //     }
+        // }
 
         cout << "Adding" << endl;
         students[size++] = s; 
 
     }
-//aw
+
+
+    void addAt(int index, student* rawr){
+
+        if(size >= capacity){
+            capacity = ceil(capacity * 1.5);
+            students = (student**)realloc(students, sizeof(student*) * capacity);
+
+        }
+
+        for(int i=size-1; i>=index; i--){
+            students[i+1] = students[i];
+        }
+
+        students[index] = rawr;
+        size++;
+
+    }
+
+
     void print() {
     cout << size << "/" << capacity << endl;
 
@@ -58,7 +77,7 @@ class Course{
         for(int i=0;i<size;i++){
             if(students[i]->name == s->name){
                 
-
+                free(students[i]);
                 for(int j=i; j<size-1;j++){
                     students[j] = students[j+1];
                 }
@@ -77,4 +96,49 @@ class Course{
         }
         return -1;
     }
+
+    student* removeAt(int index){
+        
+        student* helo = new student;
+        helo = students[index];  
+        //free(students[index]); dont uncomment it will lead to segfault!
+        for(int i=index; i<size; i++){
+            students[i] = students[i+1];
+        }
+        size--; 
+        if(size <= capacity * (2.0/3.0)){
+            if(capacity > 5){
+                capacity = capacity * 0.75;
+                students = (student**)realloc(students, capacity * sizeof(student*)); 
+            }
+        }
+
+        return helo;
+    }
+
+    void topStudents(int n){
+        if(n > size){ 
+            cout <<"Out of bounds!";
+            return; 
+            }
+        for(int i=0; i<n;i++){
+            cout << i+1 <<". "<<students[i]->name << " " << students[i]->grade << endl; 
+        }
+        
+    }
+
+
+    void sort(){
+
+        for(int i=0;i<size-1;i++){
+            for(int j=0; j<size-i-1;j++){
+                if(students[j]->grade < students[j+1]->grade){
+                    student* temp = students[j];
+                    students[j] = students[j+1];
+                    students[j+1]= temp;
+                }
+            }
+        }
+    }
+
 };
