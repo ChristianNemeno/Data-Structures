@@ -75,26 +75,22 @@ class Course{
     int removestudent(student* s){
 
         for(int i=0;i<size;i++){
-            if(students[i]->name == s->name){
-                
-                free(students[i]);
-                for(int j=i; j<size-1;j++){
+
+            if(s->name == students[i]->name){
+                for(int j=i;j<size-1;j++){
                     students[j] = students[j+1];
                 }
                 size--;
-                if(size <= floor(capacity * (2.0/3.0))){
-                    if(capacity > 5 ){
-                        cout << "[Resizing , because of remove]" << endl;
-                        capacity = capacity - floor(capacity * 0.25);
-                        students = (student**)realloc(students, sizeof(student*) * capacity);
-                        cout <<"Success!";
+                if(size <= capacity * (2.0/3.0)){
+                    capacity = floor(capacity * 0.75);
+                    if(capacity > 5){
+                      students = (student**)realloc(students,sizeof(student*) * capacity);
+                    }else{
+                        capacity = 5; 
                     }
                 }
-
-                return i+1;
             }
         }
-        return -1;
     }
 
     student* removeAt(int index){

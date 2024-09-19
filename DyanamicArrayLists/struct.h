@@ -12,6 +12,7 @@ typedef struct zample {
 
 } zample;
 
+
 typedef struct killa {
     float x;
     double intensity;
