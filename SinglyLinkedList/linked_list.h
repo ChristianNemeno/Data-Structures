@@ -138,6 +138,7 @@ public:
      int removeFirst(){
           if(!head){
                cout << "No nodes" << endl;
+               return -1;
           }
           Node* temp; 
           temp = head;
