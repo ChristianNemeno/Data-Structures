@@ -193,7 +193,7 @@ public:
           int retu;
           if(!head){
                cout<< "no nodes";
-               return -1;
+               return 0;
           }
           if(tail->data == n){
                retu = removeLast();
