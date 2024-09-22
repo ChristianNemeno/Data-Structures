@@ -46,7 +46,7 @@ void addAt(int pos, int value){
         array[i+1] = array[i];
     }
     array[pos-1] = value;
-
+    size++;
 }
 
 void add(int n){
