@@ -99,11 +99,11 @@ class DoublyLinkedList : public List{
         n->next = curr;
         n->prev = curr->prev;
 
-        //link the previous(prev of curr) node's next  to the new node
+        
         node* temp = curr->prev;
 
         temp->next = n;
-        //link the current node to the new node
+        
         curr->prev = n;
 
         
@@ -129,6 +129,7 @@ class DoublyLinkedList : public List{
         size--;
 
         if(size == 0){
+            head = nullptr;
             tail = nullptr;
         }
 
@@ -136,24 +137,66 @@ class DoublyLinkedList : public List{
 
     }
 
+    int removeTail(){
+        if(!tail){
+            return -1;
+        }
+        if(tail == head){
+            return removeHead();
+        }
+        int ret = tail->data;
+        node* temp = tail;
+        tail = tail->prev;
+        
+        tail->next = nullptr;
+        free(temp);
+        size--;
+
+        return ret;
+    }
+
     int remove(int n){
         //single node;
-        //handle head node , we cant really do a last node basin first occurence i remove
-        // if(head->data == n){
-        //     int wow = removeHead();
-        //     return 1;
-        // }
+        // handle head node , we cant really do a last node basin first occurence i remove if dups
+        if(head->data == n){
+            int wow = removeHead();
+            return 1;
+        }
         
-        // node* curr = head;
+        node* curr = head;
 
-        // while(curr->data != n){
-        //     curr = curr->next;
-        // }
-        int kk = removeHead();
+        while(curr->data != n  && curr){
+            curr = curr->next;
+        }
+        //check if tail 
+        if(!curr){
+            cout << "No nodes!";
+            return -1;
+        }
 
+        if(curr == tail){
+            return removeTail();
+        }
 
-        return -1;
+        int ret = curr->data;
+
+        //link the prev and next first
+
+        //i link ang previous node sa curr sa next node
+    
+        curr->prev->next = curr->next;
+
+        // now si ang prev ni next node is ang prev sa curr
+        curr->next->prev = curr->prev;
+
+        // try it and pray
+        free(curr);
+        size--;
+
+        return ret;
     }
+
+
     void print(){
         if(size == 0){
             cout << "Empty" << endl;
