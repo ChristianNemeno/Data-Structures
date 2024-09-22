@@ -165,7 +165,7 @@ class DoublyLinkedList : public List{
         
         node* curr = head;
 
-        while(curr->data != n  && curr){
+        while( curr && curr->data != n  ){
             curr = curr->next;
         }
         //check if tail 
