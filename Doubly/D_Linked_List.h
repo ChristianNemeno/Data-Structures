@@ -58,13 +58,13 @@ class DoublyLinkedList : public List{
         //naay tail
 
         node* n = (node*)calloc(1,sizeof(node));
-
+        //initialize the tail
         n->prev = tail;
         n->data = num;
         n->next = nullptr;
-
+        //link the tail to the new node 
         tail->next = n;
-
+        // set new node as tail
         tail = n;
         size++;
 
@@ -120,6 +120,15 @@ class DoublyLinkedList : public List{
             cout << "Empty";
             return 0;
         }
+        if(size == 1){
+            size--;
+            int temp = head->data;
+            free(head);
+
+            head =nullptr;
+            tail=nullptr;
+            return temp;
+        }
 
         node* temp = head;
         int ret = temp -> data; 
@@ -158,9 +167,15 @@ class DoublyLinkedList : public List{
     int remove(int n){
         //single node;
         // handle head node , we cant really do a last node basin first occurence i remove if dups
+        if(!head){
+            cout << "Empty";
+            return -1;
+        }
+        
+        
         if(head->data == n){
-            int wow = removeHead();
-            return 1;
+            
+            return removeHead();
         }
         
         node* curr = head;
@@ -197,6 +212,35 @@ class DoublyLinkedList : public List{
     }
 
 
+    int removeAt(int pos,int value){
+        if(!head){
+            
+            return -1;
+        }
+        
+        if(pos == 1){
+            return removeHead();
+        }
+
+        if(pos == size){
+            return removeTail();
+        }
+
+        int i = 1;
+        node* curr = head;
+
+        for(;i<pos && curr;i++){
+            curr = curr->next;    
+        }
+
+        
+
+
+
+
+    }
+
+
     void print(){
         if(size == 0){
             cout << "Empty" << endl;
@@ -209,9 +253,12 @@ class DoublyLinkedList : public List{
             curr = curr->next;
             
         }
+        
         if(!curr){
-            cout << "NULL";
+            cout << "NULL" << endl;
         }
+        cout << "Tail = " << tail->data << endl;
+        cout << "Head = " << head->data << endl;
 
         cout <<endl;   
         return;

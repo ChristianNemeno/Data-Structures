@@ -13,9 +13,12 @@ int main() {
     while (true) {
         cout  << endl;
         cout << "[a] add" << endl;
+        cout << "[A] addAt" << endl;
         cout << "[r] remove" << endl;
+        cout << "[R] removeAt" << endl;
         cout << "[p] print" << endl;
         cout << "[x] exit" << endl;
+        
         cout  << endl;
         cout << "Enter choice: ";
         
@@ -39,12 +42,12 @@ int main() {
                 break;
                 
                 case 'r':
-                    cout << "Enter value to remove: ";
+                    
                     cin >> value;
 
                     // Validate input for value
                     
-                    cout << list->remove(value); // Assuming your remove method is implemented
+                    cout << "Removed: " <<list->remove(value); // Assuming your remove method is implemented
                     break;
                 case 'p':
                     list->print(); // Assuming your print method is implemented
