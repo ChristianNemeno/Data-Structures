@@ -113,6 +113,47 @@ class DoublyLinkedList : public List{
 
 
     }
+    void addSorted(int num){
+        //if empty
+        if(!head){
+            addHead(num);
+            return;
+        }
+        if(head->data < num){
+            addHead(num);
+            return;
+        }
+
+
+        node* curr = head;
+       
+        while(curr){
+            if(curr->data < num){
+                break;                
+            }
+            
+            curr = curr->next;
+        }
+
+        if(!curr){
+            addTail(num);
+            return;
+        }
+
+        node* n = (node*)calloc(1,sizeof(node));
+
+        // initialize the node
+        n->data = num;
+        n->prev = curr->prev;
+        n->next = curr;
+        //
+        curr->prev->next = n;
+        //
+        curr->prev = n;
+
+
+
+    }
 
     int removeHead(){
 
@@ -185,7 +226,7 @@ class DoublyLinkedList : public List{
         }
         //check if tail 
         if(!curr){
-            cout << "No nodes!";
+            
             return -1;
         }
 
@@ -212,9 +253,9 @@ class DoublyLinkedList : public List{
     }
 
 
-    int removeAt(int pos,int value){
+    int removeAt(int pos){
         if(!head){
-            
+
             return -1;
         }
         
@@ -229,15 +270,46 @@ class DoublyLinkedList : public List{
         int i = 1;
         node* curr = head;
 
-        for(;i<pos && curr;i++){
+        for(; curr && i<pos;i++){
             curr = curr->next;    
         }
 
+        int ret = curr->data;
+
+        //link the prev and next first
+
+        //i link ang previous node sa curr sa next node
+    
+        curr->prev->next = curr->next;
+
+        // now si ang prev ni next node is ang prev sa curr
+        curr->next->prev = curr->prev;
+
+        size--;
+        // try it and pray
+        free(curr);
         
+        return ret;
 
 
+    }
 
-
+    int removeAll(int num){
+        int ctr=0;
+        while(head && head->data == num){
+            int t = removeHead();
+            ctr++;
+        }
+        node* curr = head;
+        int hi=1;
+        while(true){
+            hi = remove(num);
+            if(hi == -1){
+                break;
+            }
+            ctr++;
+        }
+        return ctr;
     }
 
 

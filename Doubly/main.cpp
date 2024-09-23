@@ -12,8 +12,8 @@ int main() {
 
     while (true) {
         cout  << endl;
-        cout << "[a] add" << endl;
-        cout << "[A] addAt" << endl;
+        cout << "[a] add" <<"\t\t"<<"[1] Remove All"<< endl;
+        cout << "[A] addAt" <<"\t"<<"[2] addSorted"<<  endl;
         cout << "[r] remove" << endl;
         cout << "[R] removeAt" << endl;
         cout << "[p] print" << endl;
@@ -49,6 +49,25 @@ int main() {
                     
                     cout << "Removed: " <<list->remove(value); // Assuming your remove method is implemented
                     break;
+
+                case 'R':
+
+                    cin >> pos;
+                    cout <<"Removed: " <<list->removeAt(pos) << endl;
+
+                    break;
+
+                case '1':
+                    cin>>value;
+                    cout << "Number of removed instances: "<< list->removeAll(value) << endl;
+                    break;
+
+                case '2':
+                    cin >> value;
+                    list->addSorted(value);
+                break;
+
+                
                 case 'p':
                     list->print(); // Assuming your print method is implemented
                     break;
