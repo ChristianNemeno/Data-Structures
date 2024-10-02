@@ -16,6 +16,10 @@ class DoublyLinkedList : public List{
         head = nullptr;
         tail = nullptr;
     }
+    //utility
+    int getSize(){
+        return size;
+    }
 
     void addHead(int num){
        if(head == nullptr){
@@ -58,7 +62,7 @@ class DoublyLinkedList : public List{
         //naay tail
 
         node* n = (node*)calloc(1,sizeof(node));
-        //initialize the tail
+        //initialize the node
         n->prev = tail;
         n->data = num;
         n->next = nullptr;
@@ -313,6 +317,129 @@ class DoublyLinkedList : public List{
     }
 
 
+    int retain(int num){
+
+        int ctr=0;
+        
+        while(head->data < num){
+            
+            head = head->next;
+            head->prev = nullptr;
+            size--;
+            ctr++;
+            if(size == 0){
+                head = nullptr;
+                tail = nullptr;
+                return ctr;
+            }
+        }
+
+
+        node* pred;
+        node* succ;
+        node* curr = head;
+        while(curr){
+            
+            if(curr->data < num){
+                if(curr == tail){
+                    tail = tail->prev;
+                    tail->next = nullptr;
+                    size--;
+                    if(size == 0){
+                        head = nullptr;
+                        tail = nullptr;
+                    }
+                    ctr++;
+                    return ctr;
+                }
+                pred = curr->prev;
+                succ = curr->next;
+                
+                pred->next = succ;
+                succ->prev = pred;
+
+                size--; 
+                if(size == 0){
+                    head=nullptr;
+                    tail=nullptr;
+                }
+                ctr++;
+            }
+            curr = curr->next;
+
+        }
+
+        return ctr;
+    }
+
+    
+    int corner(int left, int right) {
+    
+    if (left < 0 || right < 0 || left >= size || right >= size) {
+        return -1;  // Error: invalid positions
+    }
+
+
+
+    int temp = size;
+    size = left + right;
+
+    int removed = temp -size;
+
+   
+    node* currentLeft = head;
+    for (int i = 1; i < left; i++) {
+        if(left == 0){
+            break;
+        }
+        currentLeft = currentLeft->next;
+    }
+
+    // Traverse to the right position
+    node* currentRight = tail;
+    for (int j = 1; j < right; j++) {
+        if(right == 0){
+            break;
+        }
+        currentRight = currentRight->prev;
+    }
+
+    if(left == 0 && right == 0){
+        head == nullptr;
+        tail == nullptr;
+        int t = size;
+        size = 0;
+        return t;
+    }
+    // If left == 0, adjust the head pointer
+    if (left == 0) {
+        head = currentRight;
+        head->prev = nullptr;
+        return right;
+    }
+
+    
+    else if (right == 0) {
+        tail = currentLeft;
+        tail->next = nullptr;
+        return left;
+    }else{
+        
+    
+    currentLeft->next = currentRight;
+    currentRight->prev = currentLeft;
+    }
+
+    
+
+    
+
+    
+
+    return removed; 
+}
+  
+
     void print(){
         if(size == 0){
             cout << "Empty" << endl;
@@ -352,12 +479,34 @@ class DoublyLinkedList : public List{
         return;
     }
     int get(int pos){
-        int i = 1;
+        if(pos < 1 || pos > size){
+            return -1;
+        }
+        int i;
+        node* curr;
+        int yeas;
+        if(size / 2 <= pos){
+            yeas = 1;
+            curr = head;
+            i=1;
+            while(i<pos){
+                curr=curr->next;
+                i++;
+            }
+        }else{
+            yeas =2;
+            curr = tail;
+            i=1;
+            while(i < pos){
+                curr=curr->prev;
+                i++;
+            }
+        }
 
-        node* curr = head;
-        while(i < pos){
-            curr = curr->next;
-            i++;
+        if(yeas == 1){
+            cout << "From head bro " << endl;
+        }else{
+            cout << "From tail bro " << endl;
         }
 
         return curr->data;

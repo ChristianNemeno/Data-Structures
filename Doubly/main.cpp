@@ -10,14 +10,16 @@ int main() {
     char choice;
     int pos;
 
+    int l,r;
+
     while (true) {
         cout  << endl;
         cout << "[a] add" <<"\t\t"<<"[1] Remove All"<< endl;
         cout << "[A] addAt" <<"\t"<<"[2] addSorted"<<  endl;
-        cout << "[r] remove" << endl;
-        cout << "[R] removeAt" << endl;
-        cout << "[p] print" << endl;
-        cout << "[x] exit" << endl;
+        cout << "[r] remove" <<"\t" << "[c] corner"<< endl;
+        cout << "[R] removeAt" << "\t" << "[3] retain"<<endl;
+        cout << "[p] print" <<"\t" << "[4] size"<<endl;
+        cout << "[x] exit" << "\t"<<"[5] get" <<endl;
         
         cout  << endl;
         cout << "Enter choice: ";
@@ -26,6 +28,18 @@ int main() {
 
          // Process choices
             switch (choice) {
+                
+                
+                
+                
+                case 'c' : 
+                cin >> l;
+                cin >> r;
+                cout << "Removed no. of removed elements: "<<list->corner(l,r);        
+                
+                break;
+
+
                 case 'A':
                     cout << "Enter value to add and pos: ";
                     cin >> value;
@@ -67,7 +81,19 @@ int main() {
                     list->addSorted(value);
                 break;
 
+                case '3':
+                    cin >> value;
+                    cout << "No. removed elements : "<<list->retain(value) << endl;
+                break;
+
+                case '4':
+                    cout << "Current size of the list: "<<list->getSize() << endl;
                 
+                case '5':
+                    cin >> pos;
+                    cout << "Element at " << pos << " position "<<list->get(pos);
+                break;
+
                 case 'p':
                     list->print(); // Assuming your print method is implemented
                     break;
